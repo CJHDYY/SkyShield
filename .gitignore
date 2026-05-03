@@ -1,0 +1,36 @@
+# dependencies
+node_modules/
+
+# build outputs
+dist/
+target/
+.deploy-artifacts/
+frontend-dist*.tar.gz
+
+# logs and temp files
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+
+# local ops state
+ops/.last-deploy-dir
+.git-backups/
+
+# local deployment notes may contain server/database secrets
+SkyShield-Server/DEPLOYMENT_ENVIRONMENT.md
+
+# generated documents
+*.docx
+*_used_files.txt
+
+# secrets / keys
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+skyshield_ops_ed25519*

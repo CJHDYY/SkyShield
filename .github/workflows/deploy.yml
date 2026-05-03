@@ -54,7 +54,10 @@ jobs:
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/skyshield_deploy_key
+          sed -i 's/\r$//' ~/.ssh/skyshield_deploy_key
           chmod 600 ~/.ssh/skyshield_deploy_key
+          ssh-keygen -y -f ~/.ssh/skyshield_deploy_key > ~/.ssh/skyshield_deploy_key.pub
+          ssh-keygen -lf ~/.ssh/skyshield_deploy_key.pub
           ssh-keyscan -H "$SERVER_HOST" >> ~/.ssh/known_hosts
 
       - name: Upload artifacts

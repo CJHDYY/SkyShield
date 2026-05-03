@@ -11,7 +11,7 @@ concurrency:
   group: skyshield-production
   cancel-in-progress: false
 
-jobs:
+jobs: 
   deploy:
     runs-on: ubuntu-22.04
 

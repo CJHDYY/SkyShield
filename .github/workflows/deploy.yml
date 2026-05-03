@@ -58,7 +58,7 @@ jobs:
           chmod 600 ~/.ssh/skyshield_deploy_key
           ssh-keygen -y -f ~/.ssh/skyshield_deploy_key > ~/.ssh/skyshield_deploy_key.pub
           ssh-keygen -lf ~/.ssh/skyshield_deploy_key.pub
-          ssh-keyscan -H "$SERVER_HOST" >> ~/.ssh/known_hosts
+          ssh-keyscan -t ed25519,rsa -H "$SERVER_HOST" >> ~/.ssh/known_hosts
 
       - name: Upload artifacts
         env:
@@ -68,17 +68,18 @@ jobs:
           DEPLOY_DIR="/root/skyshield-deploy-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           echo "DEPLOY_DIR=$DEPLOY_DIR" >> "$GITHUB_ENV"
           REMOTE="${SERVER_USER}@${SERVER_HOST}"
-          ssh -o BatchMode=yes -i ~/.ssh/skyshield_deploy_key "$REMOTE" "whoami && hostname && mkdir -p '$DEPLOY_DIR' && chmod 700 '$DEPLOY_DIR'"
-          scp -o BatchMode=yes -i ~/.ssh/skyshield_deploy_key SkyShield-Server/skyshield-admin/target/skyshield-admin.jar "${REMOTE}:${DEPLOY_DIR}/skyshield-admin.jar"
-          scp -o BatchMode=yes -i ~/.ssh/skyshield_deploy_key frontend-dist.tar.gz "${REMOTE}:${DEPLOY_DIR}/frontend-dist.tar.gz"
-          scp -o BatchMode=yes -i ~/.ssh/skyshield_deploy_key ops/deploy-uploaded.sh "${REMOTE}:${DEPLOY_DIR}/deploy-uploaded.sh"
+          SSH_OPTS="-o BatchMode=yes -o HostKeyAlgorithms=+ssh-ed25519,+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-ed25519,+ssh-rsa -i ~/.ssh/skyshield_deploy_key"
+          ssh $SSH_OPTS "$REMOTE" "whoami && hostname && mkdir -p '$DEPLOY_DIR' && chmod 700 '$DEPLOY_DIR'"
+          scp $SSH_OPTS SkyShield-Server/skyshield-admin/target/skyshield-admin.jar "${REMOTE}:${DEPLOY_DIR}/skyshield-admin.jar"
+          scp $SSH_OPTS frontend-dist.tar.gz "${REMOTE}:${DEPLOY_DIR}/frontend-dist.tar.gz"
+          scp $SSH_OPTS ops/deploy-uploaded.sh "${REMOTE}:${DEPLOY_DIR}/deploy-uploaded.sh"
 
       - name: Deploy on server
         env:
           SERVER_HOST: ${{ secrets.SKYSHIELD_SERVER_HOST }}
           SERVER_USER: ${{ secrets.SKYSHIELD_SERVER_USER }}
         run: |
-          ssh -o BatchMode=yes -i ~/.ssh/skyshield_deploy_key "${SERVER_USER}@${SERVER_HOST}" "bash '$DEPLOY_DIR/deploy-uploaded.sh' '$DEPLOY_DIR'"
+          ssh -o BatchMode=yes -o HostKeyAlgorithms=+ssh-ed25519,+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-ed25519,+ssh-rsa -i ~/.ssh/skyshield_deploy_key "${SERVER_USER}@${SERVER_HOST}" "bash '$DEPLOY_DIR/deploy-uploaded.sh' '$DEPLOY_DIR'"
 
       - name: Verify deployment
         env:

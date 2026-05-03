@@ -11,7 +11,7 @@ concurrency:
   group: skyshield-production
   cancel-in-progress: false
 
-jobs: 
+jobs:
   deploy:
     runs-on: ubuntu-22.04
 
@@ -64,17 +64,18 @@ jobs:
         run: |
           DEPLOY_DIR="/root/skyshield-deploy-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           echo "DEPLOY_DIR=$DEPLOY_DIR" >> "$GITHUB_ENV"
-          ssh -i ~/.ssh/skyshield_deploy_key "$SERVER_USER@$SERVER_HOST" "mkdir -p '$DEPLOY_DIR' && chmod 700 '$DEPLOY_DIR'"
-          scp -i ~/.ssh/skyshield_deploy_key SkyShield-Server/skyshield-admin/target/skyshield-admin.jar "$SERVER_USER@$SERVER_HOST:$DEPLOY_DIR/skyshield-admin.jar"
-          scp -i ~/.ssh/skyshield_deploy_key frontend-dist.tar.gz "$SERVER_USER@$SERVER_HOST:$DEPLOY_DIR/frontend-dist.tar.gz"
-          scp -i ~/.ssh/skyshield_deploy_key ops/deploy-uploaded.sh "$SERVER_USER@$SERVER_HOST:$DEPLOY_DIR/deploy-uploaded.sh"
+          REMOTE="${SERVER_USER}@${SERVER_HOST}"
+          ssh -o BatchMode=yes -i ~/.ssh/skyshield_deploy_key "$REMOTE" "whoami && hostname && mkdir -p '$DEPLOY_DIR' && chmod 700 '$DEPLOY_DIR'"
+          scp -o BatchMode=yes -i ~/.ssh/skyshield_deploy_key SkyShield-Server/skyshield-admin/target/skyshield-admin.jar "${REMOTE}:${DEPLOY_DIR}/skyshield-admin.jar"
+          scp -o BatchMode=yes -i ~/.ssh/skyshield_deploy_key frontend-dist.tar.gz "${REMOTE}:${DEPLOY_DIR}/frontend-dist.tar.gz"
+          scp -o BatchMode=yes -i ~/.ssh/skyshield_deploy_key ops/deploy-uploaded.sh "${REMOTE}:${DEPLOY_DIR}/deploy-uploaded.sh"
 
       - name: Deploy on server
         env:
           SERVER_HOST: ${{ secrets.SKYSHIELD_SERVER_HOST }}
           SERVER_USER: ${{ secrets.SKYSHIELD_SERVER_USER }}
         run: |
-          ssh -i ~/.ssh/skyshield_deploy_key "$SERVER_USER@$SERVER_HOST" "bash '$DEPLOY_DIR/deploy-uploaded.sh' '$DEPLOY_DIR'"
+          ssh -o BatchMode=yes -i ~/.ssh/skyshield_deploy_key "${SERVER_USER}@${SERVER_HOST}" "bash '$DEPLOY_DIR/deploy-uploaded.sh' '$DEPLOY_DIR'"
 
       - name: Verify deployment
         env:

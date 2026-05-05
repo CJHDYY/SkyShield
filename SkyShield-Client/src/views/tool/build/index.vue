@@ -99,7 +99,7 @@
 import draggable from "vuedraggable/dist/vuedraggable.common";
 import ClipboardJS from 'clipboard'
 import beautifier from 'js-beautify'
-import logo from '@/assets/logo/skyshield-logo.svg'
+import logo from '@/assets/logo/skyshield-logo.png'
 import { inputComponents, selectComponents, layoutComponents, formConf as formConfData } from '@/utils/generator/config'
 import { beautifierConf } from '@/utils/index'
 import drawingDefalut from '@/utils/generator/drawingDefalut'
@@ -369,8 +369,9 @@ $lighterBlue: #409EFF;
         white-space: nowrap;
 
         >img {
-          width: 30px;
           height: 30px;
+          width: auto;
+          object-fit: contain;
           vertical-align: top;
         }
 

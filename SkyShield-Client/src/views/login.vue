@@ -85,7 +85,7 @@ import { getCodeImg } from "@/api/login";
 import Cookies from "js-cookie";
 import { encrypt, decrypt } from "@/utils/jsencrypt";
 import useUserStore from '@/store/modules/user'
-import logoUrl from '@/assets/logo/skyshield-logo.svg'
+import logoUrl from '@/assets/logo/skyshield-logo.png'
 
 const userStore = useUserStore()
 const route = useRoute();
@@ -307,8 +307,9 @@ getCookie();
 }
 
 .brand-logo {
-  width: 72px;
   height: 72px;
+  width: auto;
+  max-width: 90px;
   object-fit: contain;
   margin-bottom: 12px;
 }

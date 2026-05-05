@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import logoImg from '@/assets/logo/logo.png'
+import logoImg from '@/assets/logo/skyshield-logo.png'
 import variables from '@/assets/styles/variables.scss'
 
 export default {
@@ -66,10 +66,11 @@ export default {
     width: 100%;
 
     & .sidebar-logo {
-      width: 32px;
       height: 32px;
+      width: auto;
       vertical-align: middle;
       margin-right: 12px;
+      object-fit: contain;
     }
 
     & .sidebar-title {

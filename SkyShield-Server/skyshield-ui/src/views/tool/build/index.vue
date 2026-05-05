@@ -147,7 +147,7 @@ import { makeUpHtml, vueTemplate, vueScript, cssStyle } from '@/utils/generator/
 import { makeUpJs } from '@/utils/generator/js'
 import { makeUpCss } from '@/utils/generator/css'
 import drawingDefault from '@/utils/generator/drawingDefault'
-import logo from '@/assets/logo/logo.png'
+import logo from '@/assets/logo/skyshield-logo.png'
 import CodeTypeDialog from './CodeTypeDialog'
 import DraggableItem from './DraggableItem'
 
@@ -610,8 +610,9 @@ $lighterBlue: #409EFF;
   font-size: 17px;
   white-space: nowrap;
   > img{
-    width: 30px;
     height: 30px;
+    width: auto;
+    object-fit: contain;
     vertical-align: top;
   }
   .github{

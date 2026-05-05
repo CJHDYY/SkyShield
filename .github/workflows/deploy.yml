@@ -73,6 +73,7 @@ jobs:
           scp $SSH_OPTS SkyShield-Server/skyshield-admin/target/skyshield-admin.jar "${REMOTE}:${DEPLOY_DIR}/skyshield-admin.jar"
           scp $SSH_OPTS frontend-dist.tar.gz "${REMOTE}:${DEPLOY_DIR}/frontend-dist.tar.gz"
           scp $SSH_OPTS ops/deploy-uploaded.sh "${REMOTE}:${DEPLOY_DIR}/deploy-uploaded.sh"
+          scp $SSH_OPTS ops/nginx-jsionit.conf "${REMOTE}:${DEPLOY_DIR}/nginx-jsionit.conf"
 
       - name: Deploy on server
         env:
@@ -85,6 +86,6 @@ jobs:
         env:
           SERVER_HOST: ${{ secrets.SKYSHIELD_SERVER_HOST }}
         run: |
-          curl -fsS --max-time 20 "http://$SERVER_HOST/" >/dev/null
-          curl -fsS --max-time 20 "http://$SERVER_HOST/prod-api/captchaImage" >/dev/null
+          curl -fsS --max-time 20 "http://$SERVER_HOST:8001/" >/dev/null
+          curl -fsS --max-time 20 "http://$SERVER_HOST:8001/prod-api/captchaImage" >/dev/null
           echo "verify_ok"

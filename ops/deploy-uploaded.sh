@@ -28,6 +28,11 @@ find "${FRONTEND_DIR}" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
 tar -xzf "${DEPLOY_DIR}/frontend-dist.tar.gz" -C "${FRONTEND_DIR}"
 chown -R www-data:www-data "${FRONTEND_DIR}"
 
+if [[ -f "${DEPLOY_DIR}/nginx-jsionit.conf" ]]; then
+  cp -f "${DEPLOY_DIR}/nginx-jsionit.conf" /etc/nginx/sites-available/skyshield.conf
+  ln -sfn /etc/nginx/sites-available/skyshield.conf /etc/nginx/sites-enabled/skyshield.conf
+fi
+
 nginx -t
 systemctl restart skyshield
 systemctl reload nginx

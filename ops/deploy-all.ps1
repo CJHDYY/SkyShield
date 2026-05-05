@@ -108,7 +108,7 @@ Run "ssh -i `"$Key`" ${User}@${Server} `"bash $RemoteDir/deploy-uploaded.sh $Rem
 
 if (-not $SkipVerify) {
     Step "Verifying services and HTTP endpoints"
-    Run "ssh -i `"$Key`" ${User}@${Server} `"systemctl is-active skyshield && systemctl is-active nginx && curl -fsS --max-time 10 http://127.0.0.1/ >/dev/null && curl -fsS --max-time 10 http://127.0.0.1/prod-api/captchaImage >/dev/null && echo verify_ok`""
+    Run "ssh -i `"$Key`" ${User}@${Server} `"systemctl is-active skyshield && systemctl is-active nginx && curl -fsS --max-time 10 http://127.0.0.1:8001/ >/dev/null && curl -fsS --max-time 10 http://127.0.0.1:8001/prod-api/captchaImage >/dev/null && echo verify_ok`""
     $home = (Invoke-WebRequest -Uri "http://49.234.190.106/" -UseBasicParsing -TimeoutSec 15).StatusCode
     $captcha = (Invoke-WebRequest -Uri "http://49.234.190.106/prod-api/captchaImage" -UseBasicParsing -TimeoutSec 15).StatusCode
     Write-Host "Public home status: $home"

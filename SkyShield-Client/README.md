@@ -31,7 +31,7 @@ npm install --registry=https://registry.npmmirror.com
 # 本地开发 启动项目
 npm run dev
 
-# 前端访问地址 http://localhost:80
+# 前端访问地址 http://localhost:8001
 ```
 
 ## 内置功能

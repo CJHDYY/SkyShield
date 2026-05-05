@@ -75,6 +75,51 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/low-altitude',
+    component: Layout,
+    redirect: '/low-altitude/perception',
+    alwaysShow: true,
+    meta: { title: '低空网络安全', icon: 'monitor' },
+    children: [
+      {
+        path: 'perception',
+        component: () => import('@/views/low-altitude/perception/index'),
+        name: 'ThreatPerception',
+        meta: { title: '全域威胁感知', icon: 'dashboard' }
+      },
+      {
+        path: 'cognition',
+        component: () => import('@/views/low-altitude/cognition/index'),
+        name: 'ThreatCognition',
+        meta: { title: '智能认知与分析', icon: 'chart' }
+      },
+      {
+        path: 'trust',
+        component: () => import('@/views/low-altitude/trust/index'),
+        name: 'DynamicTrust',
+        meta: { title: '动态信任评估', icon: 'skill' }
+      },
+      {
+        path: 'defense',
+        component: () => import('@/views/low-altitude/defense/index'),
+        name: 'CollaborativeDefense',
+        meta: { title: '协同防御与响应', icon: 'lock' }
+      },
+      {
+        path: 'trace',
+        component: () => import('@/views/low-altitude/trace/index'),
+        name: 'AttackTrace',
+        meta: { title: '攻击溯源与分析', icon: 'search' }
+      },
+      {
+        path: 'visualization',
+        component: () => import('@/views/low-altitude/visualization/index'),
+        name: 'SystemVisualization',
+        meta: { title: '系统管理与可视化', icon: 'system' }
+      }
+    ]
+  },
+  {
     path: '/user',
     component: Layout,
     hidden: true,

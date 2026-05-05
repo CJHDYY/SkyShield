@@ -15,7 +15,11 @@
     -webkit-transition: width .28s;
     transition: width 0.28s;
     width: $base-sidebar-width !important;
-    background-color: $base-menu-background;
+    background:
+      linear-gradient(180deg, rgba(6, 18, 38, 0.99) 0%, rgba(2, 10, 24, 0.99) 100%),
+      linear-gradient(rgba(52, 208, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(52, 208, 255, 0.08) 1px, transparent 1px);
+    background-size: auto, 32px 32px, 32px 32px;
     height: 100%;
     position: fixed;
     font-size: 0px;
@@ -24,8 +28,9 @@
     left: 0;
     z-index: 1001;
     overflow: hidden;
-    -webkit-box-shadow: 2px 0 6px rgba(0,21,41,.35);
-    box-shadow: 2px 0 6px rgba(0,21,41,.35);
+    border-right: 1px solid rgba(52, 208, 255, 0.18);
+    -webkit-box-shadow: 12px 0 32px rgba(0, 6, 20, 0.35);
+    box-shadow: 12px 0 32px rgba(0, 6, 20, 0.35);
 
     // reset element-ui css
     .horizontal-collapse-transition {
@@ -68,6 +73,18 @@
       border: none;
       height: 100%;
       width: 100% !important;
+      background: transparent !important;
+    }
+
+    .el-menu-item,
+    .el-sub-menu__title {
+      height: 58px;
+      line-height: 58px;
+      margin: 4px 4px;
+      border-radius: 8px;
+      color: $base-menu-color !important;
+      background: transparent !important;
+      transition: all 0.2s ease;
     }
 
     .el-menu-item, .menu-title {
@@ -84,12 +101,14 @@
     .sub-menu-title-noDropdown,
     .el-sub-menu__title {
       &:hover {
-        background-color: rgba(0, 0, 0, 0.06) !important;
+        color: #ffffff !important;
+        background: rgba(47, 123, 255, 0.18) !important;
       }
     }
 
     & .theme-dark .is-active > .el-sub-menu__title {
       color: $base-menu-color-active !important;
+      background: rgba(47, 123, 255, 0.28) !important;
     }
 
     & .nest-menu .el-sub-menu>.el-sub-menu__title,
@@ -97,17 +116,25 @@
       min-width: $base-sidebar-width !important;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.06) !important;
+        color: #ffffff !important;
+        background: rgba(47, 123, 255, 0.18) !important;
       }
     }
 
     & .theme-dark .nest-menu .el-sub-menu>.el-sub-menu__title,
     & .theme-dark .el-sub-menu .el-menu-item {
-      background-color: $base-sub-menu-background !important;
+      background: rgba(8, 26, 53, 0.72) !important;
 
       &:hover {
-        background-color: $base-sub-menu-hover !important;
+        background: rgba(18, 59, 103, 0.95) !important;
       }
+    }
+
+    .el-menu-item.is-active {
+      position: relative;
+      color: #ffffff !important;
+      background: linear-gradient(90deg, rgba(47, 123, 255, 0.95), rgba(52, 208, 255, 0.32)) !important;
+      box-shadow: inset 3px 0 0 #34d0ff, 0 12px 26px rgba(47, 123, 255, 0.16);
     }
   }
 
@@ -213,7 +240,7 @@
   .el-menu-item {
     &:hover {
       // you can use $sub-menuHover
-      background-color: rgba(0, 0, 0, 0.06) !important;
+      background-color: rgba(47, 123, 255, 0.18) !important;
     }
   }
 
@@ -223,7 +250,7 @@
     overflow-y: auto;
 
     &::-webkit-scrollbar-track-piece {
-      background: #d3dce6;
+      background: #061226;
     }
 
     &::-webkit-scrollbar {
@@ -231,7 +258,7 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background: #99a9bf;
+      background: #2f7bff;
       border-radius: 20px;
     }
   }

@@ -245,9 +245,9 @@ function handleScroll() {
 .tags-view-container {
   height: 34px;
   width: 100%;
-  background: #fff;
-  border-bottom: 1px solid #d8dce5;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
+  background: rgba(5, 18, 40, 0.9);
+  border-bottom: 1px solid rgba(52, 208, 255, 0.14);
+  box-shadow: none;
   .tags-view-wrapper {
     .tags-view-item {
       display: inline-block;
@@ -255,10 +255,11 @@ function handleScroll() {
       cursor: pointer;
       height: 26px;
       line-height: 26px;
-      border: 1px solid #d8dce5;
-      color: #495060;
-      background: #fff;
-      padding: 0 8px;
+      border: 1px solid rgba(52, 208, 255, 0.18);
+      border-radius: 999px;
+      color: #bdd3f2;
+      background: rgba(47, 123, 255, 0.08);
+      padding: 0 12px;
       font-size: 12px;
       margin-left: 5px;
       margin-top: 4px;
@@ -272,6 +273,7 @@ function handleScroll() {
         background-color: #42b983;
         color: #fff;
         border-color: #42b983;
+        box-shadow: 0 0 18px rgba(47, 123, 255, 0.22);
         &::before {
           content: "";
           background: #fff;
@@ -287,7 +289,7 @@ function handleScroll() {
   }
   .contextmenu {
     margin: 0;
-    background: #fff;
+    background: #081a35;
     z-index: 3000;
     position: absolute;
     list-style-type: none;
@@ -295,14 +297,15 @@ function handleScroll() {
     border-radius: 4px;
     font-size: 12px;
     font-weight: 400;
-    color: #333;
-    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
+    color: #d8e8ff;
+    border: 1px solid rgba(52, 208, 255, 0.18);
+    box-shadow: 0 18px 36px rgba(0, 8, 25, 0.4);
     li {
       margin: 0;
       padding: 7px 16px;
       cursor: pointer;
       &:hover {
-        background: #eee;
+        background: rgba(47, 123, 255, 0.18);
       }
     }
   }

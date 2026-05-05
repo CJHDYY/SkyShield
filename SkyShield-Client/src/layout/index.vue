@@ -71,6 +71,13 @@ function setLayout() {
   position: relative;
   height: 100%;
   width: 100%;
+  color: #d8e8ff;
+  background:
+    radial-gradient(circle at top right, rgba(52, 208, 255, 0.12), transparent 28%),
+    linear-gradient(rgba(52, 208, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(52, 208, 255, 0.045) 1px, transparent 1px),
+    #020a18;
+  background-size: auto, 32px 32px, 32px 32px, auto;
 
   &.mobile.openSidebar {
     position: fixed;
@@ -95,6 +102,8 @@ function setLayout() {
   z-index: 9;
   width: calc(100% - #{$base-sidebar-width});
   transition: width 0.28s;
+  border-bottom: 1px solid rgba(52, 208, 255, 0.16);
+  box-shadow: 0 12px 30px rgba(0, 8, 25, 0.18);
 }
 
 .hideSidebar .fixed-header {

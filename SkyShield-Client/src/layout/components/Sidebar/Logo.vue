@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-logo-container" :class="{ 'collapse': collapse }" :style="{ backgroundColor: sideTheme === 'theme-dark' ? variables.menuBackground : variables.menuLightBackground }">
+  <div class="sidebar-logo-container" :class="{ 'collapse': collapse }">
     <transition name="sidebarLogoFade">
       <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
         <img v-if="logo" :src="logo" class="sidebar-logo" />
@@ -43,9 +43,10 @@ const sideTheme = computed(() => settingsStore.sideTheme);
 .sidebar-logo-container {
   position: relative;
   width: 100%;
-  height: 50px;
-  line-height: 50px;
-  background: #2b2f3a;
+  height: 54px;
+  line-height: 54px;
+  background: rgba(6, 18, 38, 0.98);
+  border-bottom: 1px solid rgba(52, 208, 255, 0.18);
   text-align: center;
   overflow: hidden;
 
@@ -54,11 +55,12 @@ const sideTheme = computed(() => settingsStore.sideTheme);
     width: 100%;
 
     & .sidebar-logo {
-      height: 32px;
+      height: 34px;
       width: auto;
       vertical-align: middle;
       margin-right: 12px;
       object-fit: contain;
+      filter: drop-shadow(0 0 10px rgba(52, 208, 255, 0.18));
     }
 
     & .sidebar-title {
@@ -66,7 +68,7 @@ const sideTheme = computed(() => settingsStore.sideTheme);
       margin: 0;
       color: #fff;
       font-weight: 600;
-      line-height: 50px;
+      line-height: 54px;
       font-size: 14px;
       font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;

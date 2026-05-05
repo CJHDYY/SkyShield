@@ -1,8 +1,13 @@
 <template>
   <div class="login">
     <section class="login-visual" aria-hidden="true">
-      <div class="orbital orbital-outer"></div>
-      <div class="orbital orbital-inner"></div>
+      <div class="visual-copy">
+        <span class="visual-badge">SkyShield</span>
+        <h1>低空网络安全防护平台</h1>
+        <p>面向无人机、地面控制系统与通信链路的感知、认知、决策、防御、溯源一体化安全能力。</p>
+      </div>
+      <div class="orbital orbital-one"></div>
+      <div class="orbital orbital-two"></div>
       <div class="shield-preview">
         <img :src="logoUrl" alt="" />
       </div>
@@ -185,9 +190,9 @@ getCookie();
   padding: 56px 11vw;
   overflow: hidden;
   background:
-    linear-gradient(115deg, rgba(4, 14, 32, 0.98) 0%, rgba(9, 35, 66, 0.94) 46%, rgba(226, 242, 255, 0.88) 100%),
-    radial-gradient(circle at 23% 28%, rgba(93, 213, 255, 0.32), transparent 34%),
-    linear-gradient(180deg, #061325 0%, #0b2544 100%);
+    radial-gradient(circle at 12% 16%, rgba(47, 123, 255, 0.24), transparent 28%),
+    radial-gradient(circle at 88% 18%, rgba(52, 208, 255, 0.16), transparent 24%),
+    linear-gradient(180deg, #020a18 0%, #061226 100%);
   background-size: cover;
 }
 
@@ -196,92 +201,119 @@ getCookie();
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(151, 214, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(151, 214, 255, 0.08) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: linear-gradient(90deg, #000 0%, transparent 72%);
+    linear-gradient(rgba(52, 208, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(52, 208, 255, 0.08) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
 
 .login::after {
   content: "";
   position: absolute;
-  left: -18%;
-  bottom: -35%;
-  width: 760px;
-  height: 760px;
+  left: 28%;
+  top: 50%;
+  width: 860px;
+  height: 860px;
   border: 1px solid rgba(125, 218, 255, 0.2);
   border-radius: 50%;
-  box-shadow: inset 0 0 70px rgba(72, 184, 255, 0.12);
+  transform: translate(-50%, -50%);
+  box-shadow: inset 0 0 90px rgba(52, 208, 255, 0.08);
 }
 
 .login-visual {
   position: absolute;
-  left: 12vw;
+  z-index: 1;
+  left: 10vw;
   top: 50%;
-  width: min(42vw, 560px);
-  aspect-ratio: 1;
+  width: min(44vw, 620px);
+  min-height: 560px;
   transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.visual-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 520px;
+  color: #ffffff;
+
+  h1 {
+    margin: 18px 0 14px;
+    font-size: 44px;
+    line-height: 1.18;
+    letter-spacing: 0;
+  }
+
+  p {
+    margin: 0;
+    color: #9db8df;
+    font-size: 16px;
+    line-height: 1.9;
+  }
+}
+
+.visual-badge {
+  display: inline-flex;
+  padding: 7px 16px;
+  border: 1px solid rgba(52, 208, 255, 0.36);
+  border-radius: 999px;
+  color: #34d0ff;
+  background: rgba(52, 208, 255, 0.09);
+  box-shadow: 0 0 24px rgba(52, 208, 255, 0.12);
 }
 
 .orbital {
   position: absolute;
-  inset: 9%;
-  border: 1px solid rgba(130, 220, 255, 0.3);
+  border: 1px solid rgba(52, 208, 255, 0.22);
   border-radius: 50%;
+  box-shadow: inset 0 0 60px rgba(52, 208, 255, 0.06);
 }
 
-.orbital::before,
-.orbital::after {
-  content: "";
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #7ddaff;
-  box-shadow: 0 0 22px rgba(125, 218, 255, 0.86);
+.orbital-one {
+  right: 12px;
+  bottom: 16px;
+  width: 440px;
+  height: 440px;
 }
 
-.orbital::before {
-  top: 16%;
-  right: 18%;
-}
-
-.orbital::after {
-  left: 12%;
-  bottom: 24%;
-}
-
-.orbital-inner {
-  inset: 20%;
-  transform: rotate(-24deg);
-  border-color: rgba(230, 247, 255, 0.24);
+.orbital-two {
+  right: 78px;
+  bottom: 82px;
+  width: 308px;
+  height: 308px;
+  border-color: rgba(47, 123, 255, 0.24);
 }
 
 .shield-preview {
   position: absolute;
-  inset: 20%;
+  right: 64px;
+  bottom: 70px;
   display: grid;
   place-items: center;
+  width: 336px;
+  height: 336px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(241, 249, 255, 0.9), rgba(125, 218, 255, 0.12) 58%, transparent 70%);
-  filter: drop-shadow(0 26px 48px rgba(0, 0, 0, 0.28));
-}
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.16), transparent 64%),
+    rgba(8, 24, 52, 0.36);
+  box-shadow: 0 34px 92px rgba(0, 8, 25, 0.46), 0 0 70px rgba(52, 208, 255, 0.14);
 
-.shield-preview img {
-  width: 82%;
-  height: 82%;
-  object-fit: contain;
+  img {
+    width: 82%;
+    height: 82%;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 34px rgba(47, 123, 255, 0.24));
+  }
 }
 
 .login-form {
   position: relative;
-  z-index: 1;
-  width: 400px;
-  padding: 30px 28px 12px;
-  border: 1px solid rgba(212, 239, 255, 0.46);
-  border-radius: 8px;
-  background: rgba(246, 251, 255, 0.92);
-  box-shadow: 0 26px 80px rgba(3, 18, 38, 0.35);
+  z-index: 2;
+  width: 420px;
+  padding: 32px 30px 14px;
+  border: 1px solid rgba(52, 208, 255, 0.24);
+  border-radius: 12px;
+  background: rgba(8, 24, 52, 0.86);
+  box-shadow: 0 28px 90px rgba(0, 8, 25, 0.48), inset 0 0 0 1px rgba(52, 208, 255, 0.06);
   backdrop-filter: blur(18px);
 
   .el-input {
@@ -295,8 +327,22 @@ getCookie();
     height: 40px;
     width: 14px;
     margin-left: 0;
-    color: #2f6f94;
+    color: #34d0ff;
   }
+}
+
+.login-form :deep(.el-input__wrapper) {
+  border: 1px solid rgba(52, 208, 255, 0.22);
+  background: rgba(2, 10, 24, 0.62);
+  box-shadow: none;
+}
+
+.login-form :deep(.el-input__inner) {
+  color: #ffffff;
+}
+
+.login-form :deep(.el-input__inner::placeholder) {
+  color: #6f8aaf;
 }
 
 .brand {
@@ -307,7 +353,7 @@ getCookie();
 }
 
 .brand-logo {
-  height: 72px;
+  height: 78px;
   width: auto;
   max-width: 90px;
   object-fit: contain;
@@ -317,7 +363,7 @@ getCookie();
 .title {
   margin: 0;
   text-align: center;
-  color: #123655;
+  color: #ffffff;
   font-size: 26px;
   font-weight: 700;
   line-height: 1.2;
@@ -325,19 +371,19 @@ getCookie();
 
 .remember-me {
   margin: 0 0 24px;
-  color: #31536c;
+  color: #bdd3f2;
 }
 
 .login-button {
   width: 100%;
   border: 0;
-  background: linear-gradient(90deg, #1488cc 0%, #2dd4bf 100%);
-  box-shadow: 0 12px 26px rgba(20, 136, 204, 0.28);
+  background: linear-gradient(90deg, #2f7bff 0%, #34d0ff 100%);
+  box-shadow: 0 12px 26px rgba(47, 123, 255, 0.32);
 }
 
 .login-button:hover,
 .login-button:focus {
-  background: linear-gradient(90deg, #0f7dbc 0%, #23c9b2 100%);
+  background: linear-gradient(90deg, #246df0 0%, #25c4f2 100%);
 }
 
 .login-code {
@@ -348,6 +394,7 @@ getCookie();
   img {
     cursor: pointer;
     vertical-align: middle;
+    border-radius: 6px;
   }
 }
 
@@ -377,10 +424,7 @@ getCookie();
   }
 
   .login-visual {
-    opacity: 0.18;
-    left: 50%;
-    width: 620px;
-    transform: translate(-50%, -50%);
+    display: none;
   }
 }
 

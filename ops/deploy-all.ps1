@@ -15,6 +15,7 @@ $ClientDir = Join-Path $Root "SkyShield-Client"
 $ServerDir = Join-Path $Root "SkyShield-Server"
 $BackendJar = Join-Path $ServerDir "skyshield-admin\target\skyshield-admin.jar"
 $DeployScript = Join-Path $PSScriptRoot "deploy-uploaded.sh"
+$NginxConfig = Join-Path $PSScriptRoot "nginx-jsionit.conf"
 $ArtifactsDir = Join-Path $Root ".deploy-artifacts"
 $Timestamp = Get-Date -Format "yyyyMMddHHmmss"
 $FrontendArchive = Join-Path $ArtifactsDir "frontend-dist-$Timestamp.tar.gz"
@@ -34,7 +35,11 @@ function Run {
     Push-Location $WorkingDirectory
     try {
         Write-Host "+ $Command" -ForegroundColor DarkGray
+        $global:LASTEXITCODE = 0
         Invoke-Expression $Command
+        if ($LASTEXITCODE -ne 0) {
+            throw "Command failed with exit code ${LASTEXITCODE}: $Command"
+        }
     }
     finally {
         Pop-Location
@@ -58,6 +63,10 @@ if (-not (Test-Path $Key)) {
 
 if (-not (Test-Path $DeployScript)) {
     throw "Deploy script not found: $DeployScript"
+}
+
+if (-not (Test-Path $NginxConfig)) {
+    throw "Nginx config not found: $NginxConfig"
 }
 
 Step "Checking SSH connection"
@@ -102,6 +111,7 @@ Step "Uploading artifacts"
 Run "scp -i `"$Key`" `"$BackendJar`" ${User}@${Server}:$RemoteDir/skyshield-admin.jar"
 Run "scp -i `"$Key`" `"$FrontendArchive`" ${User}@${Server}:$RemoteDir/frontend-dist.tar.gz"
 Run "scp -i `"$Key`" `"$DeployScript`" ${User}@${Server}:$RemoteDir/deploy-uploaded.sh"
+Run "scp -i `"$Key`" `"$NginxConfig`" ${User}@${Server}:$RemoteDir/nginx-jsionit.conf"
 
 Step "Deploying on server"
 Run "ssh -i `"$Key`" ${User}@${Server} `"bash $RemoteDir/deploy-uploaded.sh $RemoteDir`""
@@ -109,8 +119,8 @@ Run "ssh -i `"$Key`" ${User}@${Server} `"bash $RemoteDir/deploy-uploaded.sh $Rem
 if (-not $SkipVerify) {
     Step "Verifying services and HTTP endpoints"
     Run "ssh -i `"$Key`" ${User}@${Server} `"systemctl is-active skyshield && systemctl is-active nginx && curl -fsS --max-time 10 http://127.0.0.1:8001/ >/dev/null && curl -fsS --max-time 10 http://127.0.0.1:8001/prod-api/captchaImage >/dev/null && echo verify_ok`""
-    $home = (Invoke-WebRequest -Uri "http://49.234.190.106/" -UseBasicParsing -TimeoutSec 15).StatusCode
-    $captcha = (Invoke-WebRequest -Uri "http://49.234.190.106/prod-api/captchaImage" -UseBasicParsing -TimeoutSec 15).StatusCode
+    $home = (Invoke-WebRequest -Uri "http://49.234.190.106:8001/" -UseBasicParsing -TimeoutSec 15).StatusCode
+    $captcha = (Invoke-WebRequest -Uri "http://49.234.190.106:8001/prod-api/captchaImage" -UseBasicParsing -TimeoutSec 15).StatusCode
     Write-Host "Public home status: $home"
     Write-Host "Public captcha status: $captcha"
 }

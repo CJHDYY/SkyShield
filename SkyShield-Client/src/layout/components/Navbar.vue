@@ -105,8 +105,10 @@ function setLayout() {
   height: 50px;
   overflow: hidden;
   position: relative;
-  background: #fff;
-  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  background: rgba(5, 18, 40, 0.92);
+  border-bottom: 1px solid rgba(52, 208, 255, 0.16);
+  box-shadow: none;
+  backdrop-filter: blur(12px);
 
   .hamburger-container {
     line-height: 46px;
@@ -117,12 +119,13 @@ function setLayout() {
     -webkit-tap-highlight-color: transparent;
 
     &:hover {
-      background: rgba(0, 0, 0, 0.025);
+      background: rgba(47, 123, 255, 0.16);
     }
   }
 
   .breadcrumb-container {
     float: left;
+    color: #d8e8ff;
   }
 
   .topmenu-container {
@@ -151,6 +154,7 @@ function setLayout() {
       height: 100%;
       font-size: 18px;
       color: #5a5e66;
+      color: #d8e8ff;
       vertical-align: text-bottom;
 
       &.hover-effect {
@@ -158,7 +162,7 @@ function setLayout() {
         transition: background 0.3s;
 
         &:hover {
-          background: rgba(0, 0, 0, 0.025);
+          background: rgba(47, 123, 255, 0.16);
         }
       }
     }
@@ -174,7 +178,10 @@ function setLayout() {
           cursor: pointer;
           width: 40px;
           height: 40px;
-          border-radius: 10px;
+          border: 1px solid rgba(52, 208, 255, 0.45);
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.08);
+          box-shadow: 0 0 16px rgba(52, 208, 255, 0.22);
         }
 
         i {
